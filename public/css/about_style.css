@@ -1,0 +1,139 @@
+/* About Page Styles - Exact from old semester */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* About Us Section */
+.about-us {
+    padding: 120px 0 80px;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.about-us .left {
+    text-align: center;
+}
+
+.about-us .left img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-us .left img:hover {
+    transform: translateY(-5px);
+}
+
+.about-us .right {
+    padding: 20px;
+}
+
+.about-us .right h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.about-us .right p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* Mission Section */
+.mission {
+    background: #f8f9fa;
+    padding: 80px 0;
+}
+
+.mission .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-bottom: 50px;
+}
+
+.mission .container:last-child {
+    margin-bottom: 0;
+}
+
+.mission h3 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.mission p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.about-image {
+    text-align: center;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-us {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 100px 20px 60px;
+    }
+    
+    .about-us .right h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    
+    .about-us .right p {
+        text-align: left;
+    }
+    
+    .mission {
+        padding: 60px 0;
+    }
+    
+    .mission h3 {
+        font-size: 1.8rem;
+    }
+    
+    .mission p {
+        text-align: left;
+        font-size: 1rem;
+    }
+    
+    .mission .container {
+        padding: 0 15px;
+    }
+}

@@ -22,7 +22,7 @@ class DashboardController extends Controller
         
         // Check if user is admin
         if ($this->isAdmin($user)) {
-            Log::info('🔑 ADMIN USER DETECTED! Redirecting to admin panel', [
+            Log::info('ADMIN USER DETECTED! Redirecting to admin panel', [
                 'user' => $user->email
             ]);
             
@@ -30,7 +30,7 @@ class DashboardController extends Controller
             return redirect('/admin')->with('success', 'Welcome to Admin Panel');
         }
         
-        Log::info('👤 Regular user detected, showing home page as dashboard', ['user' => $user->email]);
+        Log::info('Regular user detected, showing home page as dashboard', ['user' => $user->email]);
         // Show the same beautiful home page content for logged-in users
         return view('home');
     }

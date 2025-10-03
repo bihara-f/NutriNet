@@ -152,9 +152,7 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Logout from all devices
-     */
+    // Logout from all devices
     public function logoutAll(Request $request): JsonResponse
     {
         try {
@@ -178,9 +176,7 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Get authenticated user
-     */
+    // Get authenticated user
     public function me(Request $request): JsonResponse
     {
         return response()->json([

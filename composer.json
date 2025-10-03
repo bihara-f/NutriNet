@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Diet Plan Management System - A comprehensive Laravel application for health and wellness management.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {

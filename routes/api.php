@@ -9,11 +9,8 @@ use App\Http\Controllers\Api\{
     UserController
 };
 
-/*
-|--------------------------------------------------------------------------
-| API Routes - Public
-|--------------------------------------------------------------------------
-*/
+// Public API Routes
+// Authentication endpoints accessible without authentication
 
 // Authentication routes
 Route::prefix('auth')->group(function () {
@@ -23,47 +20,35 @@ Route::prefix('auth')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
-/*
-|--------------------------------------------------------------------------
-| API Routes - Authenticated (Temporarily commented out for admin testing)
-|--------------------------------------------------------------------------
-*/
+// Authenticated API Routes
+// Requires valid API token for access
 
-// Commenting out API routes temporarily to focus on admin functionality
+// Protected API routes for authenticated users
 /*
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
-    // API routes will be implemented later
+    // API routes implementation pending
 });
 */
 
+// Admin API Routes
+// Requires admin privileges and authentication
+
+// MongoDB Analytics API Routes
+// Advanced nutrition analytics using MongoDB
+
+// MongoDB nutrition analytics routes
 /*
-|--------------------------------------------------------------------------
-| API Routes - Admin Only
-|--------------------------------------------------------------------------
+Route::prefix('mongodb/nutrition')->group(function () {
+    // MongoDB routes implementation pending
+});
 */
 
-    /*
-    |--------------------------------------------------------------------------
-    | MongoDB Advanced Analytics API Routes (Temporarily commented out)
-    |--------------------------------------------------------------------------
-    */
+// Admin-only API Routes
+// Restricted to administrative users
 
-    // Commenting out MongoDB routes temporarily
-    /*
-    Route::prefix('mongodb/nutrition')->group(function () {
-        // MongoDB routes will be implemented later
-    });
-    */
-
-/*
-|--------------------------------------------------------------------------
-| API Routes - Admin Only (Temporarily commented out)
-|--------------------------------------------------------------------------
-*/
-
-// Commenting out admin API routes temporarily
+// Admin API routes for system management
 /*
 Route::middleware(['auth:sanctum', 'throttle:api', 'admin'])->prefix('admin')->group(function () {
-    // Admin API routes will be implemented later
+    // Admin API routes implementation pending
 });
 */

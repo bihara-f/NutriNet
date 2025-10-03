@@ -33,7 +33,7 @@ Route::get('/', function () {
         $isAdmin = in_array(strtolower($user->email), array_map('strtolower', $adminEmails));
         
         if ($isAdmin) {
-            Log::info('🚀 ADMIN detected on home page, redirecting to admin panel: ' . $user->email);
+                        Log::info('ADMIN detected on home page, redirecting to admin panel: ' . $user->email);
             return redirect('/admin')->with('success', 'Welcome to Admin Panel!');
         }
         

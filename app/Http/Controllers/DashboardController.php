@@ -13,12 +13,12 @@ class DashboardController extends Controller
         Log::info('=== DashboardController@index called ===');
         
         if (!Auth::check()) {
-            Log::info('❌ User not authenticated, redirecting to login');
+            Log::info('User not authenticated, redirecting to login');
             return redirect()->route('login');
         }
         
         $user = Auth::user();
-        Log::info('✅ User authenticated: ' . $user->email . ' (ID: ' . $user->id . ')');
+        Log::info('User authenticated: ' . $user->email . ' (ID: ' . $user->id . ')');
         
         // Check if user is admin
         if ($this->isAdmin($user)) {
@@ -46,7 +46,7 @@ class DashboardController extends Controller
         
         $isAdmin = in_array(strtolower($user->email), array_map('strtolower', $adminEmails));
         
-        Log::info('🔍 Admin check for: ' . $user->email . ' → ' . ($isAdmin ? '✅ IS ADMIN' : '❌ Regular User'));
+        Log::info('Admin check for: ' . $user->email . ' - ' . ($isAdmin ? 'IS ADMIN' : 'Regular User'));
         
         return $isAdmin;
     }

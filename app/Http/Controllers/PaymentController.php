@@ -7,6 +7,7 @@ use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -28,21 +29,23 @@ class PaymentController extends Controller
         return view('payment-old');
     }
 
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
         // Check if user is logged in
         if (!Auth::check()) {
             return redirect()->route('signin');
         }
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $address = $request->address;
-        $country = $request->country;
-        $zip_code = $request->zip_code;
-        $card_number = $request->card_number;
-        $expiration_date = $request->expiration_date;
-        $cvv = $request->cvv;
+        // Get validated data
+        $validated = $request->validated();
+        
+        $fullname = $validated['full_name'];
+        $email = $validated['email'];
+        $card_number = $validated['card_number'];
+        $expiration_date = $validated['expiry_date'];
+        $cvv = $validated['cvv'];
+        $package = $validated['package'];
+        $amount = $validated['amount'];
 
         // Get cart items
         $cart = session()->get('cart', []);
@@ -52,21 +55,18 @@ class PaymentController extends Controller
         }
 
         try {
-            // Process payment for each cart item (like old semester)
-            foreach ($cart as $item) {
-                Payment::create([
-                    'user_id' => Auth::id(),
-                    'full_name' => $fullname,
-                    'email' => $email,
-                    'address' => $address,
-                    'country' => $country,
-                    'zip_code' => $zip_code,
-                    'card_number' => $card_number,
-                    'expiration_date' => $expiration_date,
-                    'cvv' => $cvv,
-                    'package_id' => $item['id']
-                ]);
-            }
+            // Create payment record with validated data
+            Payment::create([
+                'user_id' => Auth::id(),
+                'full_name' => $fullname,
+                'email' => $email,
+                'card_number' => substr($card_number, -4), // Store only last 4 digits for security
+                'expiration_date' => $expiration_date,
+                'package' => $package,
+                'amount' => $amount,
+                'order_id' => 'ORD-' . time() . '-' . Auth::id(),
+                'status' => 'completed'
+            ]);
 
             // Clear cart after successful payment
             session()->forget('cart');

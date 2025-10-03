@@ -5,20 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Json    // Logout from all devices
-    public function logoutFromAllDevices(Request $request): JsonResponseonse;
-use Illuminate\    // Get authenticated user
-    public function user(Request $request): JsonResponseort\Facades\Auth;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
     // Register a new user
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         // Rate limiting
         $key = 'register:' . $request->ip();
@@ -27,21 +27,15 @@ class AuthController extends Controller
         }
         RateLimiter::hit($key, 3600);
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|min:2',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         try {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'username' => $request->username,
+                'contact_number' => $request->contact_number,
+                'gender' => $request->gender,
                 'password' => Hash::make($request->password),
+                'terms_accepted_at' => now(),
             ]);
 
             $token = $user->createApiToken('registration-token', ['*'], now()->addYear());
